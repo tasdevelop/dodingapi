@@ -23,5 +23,6 @@ Route.group(()=>{
   
   Route.get('doding/paginate','DodingController.paginate')
   Route.get('dodingAll','DodingController.index')
+  Route.get('kategoriAll','DodingController.listkategori')
   Route.get('doding/:id','DodingController.show')
 }).prefix('api/v1')
