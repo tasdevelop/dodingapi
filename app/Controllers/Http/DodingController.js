@@ -42,7 +42,7 @@ class DodingController {
 
     }
     async random({response}){
-        const doding = await Database.raw('SELECT * FROM dodings ORDER BY RANDOM() LIMIT 1');
+        const doding = await Doding.query().select('*').orderByRaw('RAND()').first();
         return response.json(doding);
     }
 }
