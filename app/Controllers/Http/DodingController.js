@@ -1,5 +1,7 @@
 'use strict'
 const Doding = use('App/Models/Doding')
+const Database = use('Database')
+
 class DodingController {
     async index({response}){
         const dodings = await Doding.all()
