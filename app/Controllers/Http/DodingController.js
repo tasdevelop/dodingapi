@@ -18,7 +18,7 @@ class DodingController {
             let pagination = request.only(['page','limit','kategori'])
             const page = parseInt(pagination.page,10) || 1;
             const limit = parseInt(pagination.limit,10) || 10;
-            console.log(pagination.kategori);
+            
             let dodings =await Doding.query().from('dodings').modify(function(queryBuilder){
                 if(pagination.kategori !=undefined){
                     queryBuilder.where('kategori','=',pagination.kategori)
@@ -38,6 +38,10 @@ class DodingController {
             throw err
         }
 
+    }
+    async random({response}){
+        const doding = await Database.raw('SELECT * FROM dodings ORDER BY RANDOM() LIMIT 1');
+        return response.json(doding);
     }
 }
 
