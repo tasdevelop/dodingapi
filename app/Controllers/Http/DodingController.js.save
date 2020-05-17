@@ -21,16 +21,11 @@ class DodingController {
             const page = parseInt(pagination.page,10) || 1;
             const limit = parseInt(pagination.limit,10) || 10;
 	    const search = pagination.search==undefined?'':pagination.search;            
-            let filter = [pagination.kategori];
-            
-	    let dodings =await Doding.query().from('dodings').modify(function(queryBuilder){
+            let dodings =await Doding.query().from('dodings').modify(function(queryBuilder){
                 if(pagination.kategori !=undefined){
+                    queryBuilder.whereRaw("kategori = ? "+(search==''?"":" and judul like '%?%'"),[pagination.kategori,search])
 		   
-                    queryBuilder.whereRaw("kategori = ?  and judul like '%" +search +"%'",filter)
-		   
-                }else{
-		   queryBuilder.where('judul','like','%'+search+'%')
-		}
+                }
 		//if(pagination.search !=undefined){
 		  // queryBuilder.where('judul','like',`%${pagination.search}%`)
 	//	}

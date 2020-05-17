@@ -22,15 +22,13 @@ class DodingController {
             const limit = parseInt(pagination.limit,10) || 10;
 	    const search = pagination.search==undefined?'':pagination.search;            
             let filter = [pagination.kategori];
-            
+            if(search!='') filter.push(search)    
 	    let dodings =await Doding.query().from('dodings').modify(function(queryBuilder){
                 if(pagination.kategori !=undefined){
 		   
-                    queryBuilder.whereRaw("kategori = ?  and judul like '%" +search +"%'",filter)
+                    queryBuilder.whereRaw("kategori = ? "+(search==''?"":" and judul like '%?%'"),filter)
 		   
-                }else{
-		   queryBuilder.where('judul','like','%'+search+'%')
-		}
+                }
 		//if(pagination.search !=undefined){
 		  // queryBuilder.where('judul','like',`%${pagination.search}%`)
 	//	}
